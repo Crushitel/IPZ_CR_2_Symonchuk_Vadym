@@ -3,6 +3,7 @@ package ua.lntu.edu.ipz_cr_2
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -66,18 +67,34 @@ fun SignInScreen() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text("Email")
             BasicTextField(
-                value = email.text,
+                value = email,
                 onValueChange = { email = it },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .border(
+                        width = 1.dp,
+                        color = Color.Gray,
+                        shape = MaterialTheme.shapes.small
+                    )
             )
             Spacer(modifier = Modifier.height(16.dp))
+            Text("Password")
             BasicTextField(
-                value = password.text,
+                value = password,
                 onValueChange = { password = it },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .border(
+                        width = 1.dp,
+                        color = Color.Gray,
+                        shape = MaterialTheme.shapes.small
+                    )
             )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
@@ -89,6 +106,26 @@ fun SignInScreen() {
             ) {
                 Text("Sign In")
             }
+        }
+    }
+}
+
+
+@Composable
+fun SignInSuccess(email: String, onSignOut: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Sign In success")
+        Spacer(modifier = Modifier.height(16.dp))
+        Text("Email: $email")
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onSignOut) {
+            Text("Sign Out")
         }
     }
 }
