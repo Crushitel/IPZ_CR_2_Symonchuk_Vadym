@@ -47,10 +47,50 @@ fun SignSystem() {
 }
 
 @Composable
-fun SignInScreen(){
+fun SignInScreen() {
     var email by remember { mutableStateOf(TextFieldValue()) }
     var password by remember { mutableStateOf(TextFieldValue()) }
     var signedIn by remember { mutableStateOf(false) }
+
+    if (signedIn) {
+        SignInSuccess(email = email.text, onSignOut = {
+            email = TextFieldValue()
+            password = TextFieldValue()
+            signedIn = false
+        })
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            BasicTextField(
+                value = email.text,
+                onValueChange = { email = it },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            BasicTextField(
+                value = password.text,
+                onValueChange = { password = it },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = {
+                    if (email.text.isNotEmpty() && password.text.isNotEmpty()) {
+                        signedIn = true
+                    }
+                }
+            ) {
+                Text("Sign In")
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
